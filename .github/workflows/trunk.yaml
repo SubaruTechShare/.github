@@ -4,7 +4,7 @@ on:
   workflow_call:
     inputs:
       setup-deps:
-        description: Setup dependencies
+        description: Setup dependencies for trunk check (npm install, etc. Needed for eslint extensions and similar)
         default: false
         required: false
         type: boolean
