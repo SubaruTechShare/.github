@@ -1,0 +1,36 @@
+// Devcontainer for spinning up a codespace which can work on all sts repos.
+{
+  "name": "sts-multi",
+  "customizations": {
+    "codespaces": {
+      "repositories": {
+        "SubaruTechShare/sts-client": {
+          "permissions": "write-all"
+        },
+        "SubaruTechShare/sts-backend": {
+          "permissions": "write-all"
+        },
+        "SubaruTechShare/techshare-backend": {
+          "permissions": "write-all"
+        }
+      }
+    }
+  },
+  "forwardPorts": [
+    3000
+  ],
+  "features": {
+    "ghcr.io/devcontainers/features/aws-cli:1": {},
+    "ghcr.io/devcontainers/features/github-cli": {},
+    "ghcr.io/trunk-io/devcontainer-feature/trunk:1": {},
+    "ghcr.io/aquaproj/devcontainer-features/aqua-installer:0.1.2": {
+      "aqua_version": "v2.36.1"
+    },
+    "ghcr.io/devcontainers/features/java:1": {
+      "javaVersion": "21",
+      "jdkDistro": "amzn"
+    }
+  },
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:22",
+  "$schema": "https://raw.githubusercontent.com/devcontainers/spec/refs/heads/main/schemas/devContainer.schema.json"
+}
