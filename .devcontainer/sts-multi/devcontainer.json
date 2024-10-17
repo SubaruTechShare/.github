@@ -3,7 +3,7 @@
   "name": "sts-multi",
   "customizations": {
     "codespaces": {
-      "repositories": {
+      "repositories": { // Be sure to update `clone-repos.sh` when adding or removing a repo.
         "SubaruTechShare/sts-client": {
           "permissions": "write-all"
         },
