@@ -27,10 +27,11 @@
       "aqua_version": "v2.36.1"
     },
     "ghcr.io/devcontainers/features/java:1": {
-      "javaVersion": "21",
+      "version": "21",
       "jdkDistro": "amzn"
     }
   },
+  "postCreateCommand": ".devcontainer/sts-multi/clone-repos.sh",
   "image": "mcr.microsoft.com/devcontainers/typescript-node:22",
   "$schema": "https://raw.githubusercontent.com/devcontainers/spec/refs/heads/main/schemas/devContainer.schema.json"
 }
