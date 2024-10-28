@@ -16,6 +16,13 @@
       }
     }
   },
+  "containerEnv": {
+    "AWS_EC2_METADATA_DISABLED": "true",
+    "AWS_SSO_CONFIG": "/workspaces/.github/.devcontainer/sts-multi/aws-sso/config.yaml"
+  },
+  "remoteEnv": {
+    "PATH": "${containerEnv:PATH}:/home/node/.local/share/aquaproj-aqua/bin"
+  },
   "forwardPorts": [
     3000
   ],
@@ -29,7 +36,8 @@
     "ghcr.io/devcontainers/features/java:1": {
       "version": "21",
       "jdkDistro": "amzn"
-    }
+    },
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   },
   "postCreateCommand": ".devcontainer/sts-multi/clone-repos.sh",
   "image": "mcr.microsoft.com/devcontainers/typescript-node:22",

@@ -2,20 +2,17 @@ SSOConfig:
     Default:
         SSORegion: us-east-1
         StartUrl: https://masterpoint.awsapps.com/start
-        AuthUrlAction: print
 DefaultSSO: Default
+SecureStore: json
 DefaultRegion: us-east-1
 ConsoleDuration: 720
 CacheRefresh: 168
-Threads: 5
-MaxBackoff: 5
-MaxRetry: 10
+AutoConfigCheck: true
 UrlAction: print
-ConfigProfilesUrlAction: print
+ConfigProfilesUrlAction: clip
 LogLevel: error
 HistoryLimit: 10
 HistoryMinutes: 1440
-ProfileFormat: "{{ .AccountIdPad }}:{{ .RoleName }}"
 AccountPrimaryTag:
     - AccountName
     - AccountAlias
@@ -43,4 +40,3 @@ ListFields:
     - RoleName
     - Profile
     - Expires
-FullTextSearch: true
