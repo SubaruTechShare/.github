@@ -7,7 +7,7 @@
 
   // Run weekly — Monday before 5am UTC
   "schedule": ["before 5am on Monday"],
-  "baseBranchPatterns": ["main", "dev"],
+  "baseBranchPatterns": ["main", "dev", "develop", "staging"],
   "labels": ["auto-upgrade"],
   "dependencyDashboardAutoclose": true,
 
