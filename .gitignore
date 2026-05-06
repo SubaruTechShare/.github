@@ -1,0 +1,14 @@
+# AI tooling
+CLAUDE.md
+AGENTS.md
+.claude/
+.claudeignore
+.cursor/
+.cursorrules
+.bmad/
+_bmad/
+_bmad-output/
+bmad-custom-src/
+aps*
+.aps-backups/
+.agents
