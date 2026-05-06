@@ -12,6 +12,15 @@
   "dependencyDashboardAutoclose": true,
   "separateMajorMinor": false,
 
+  // Scope to infra tooling — app deps (npm, maven, pip, etc.) are client-owned
+  "enabledManagers": [
+    "aqua",
+    "dockerfile",
+    "github-actions",
+    "regex",
+    "terraform"
+  ],
+
   "customManagers": [
     {
       "customType": "regex",
@@ -83,41 +92,6 @@
     // --- Terraform: intentionally individual PRs, needs atmos plan per change ---
     {
       "matchManagers": ["terraform"],
-      "automerge": false
-    },
-
-    // --- npm/node ---
-    {
-      "matchManagers": ["npm"],
-      "groupName": "npm dependencies",
-      "automerge": false
-    },
-
-    // --- Maven ---
-    {
-      "matchManagers": ["maven"],
-      "groupName": "maven dependencies",
-      "automerge": false
-    },
-
-    // --- Python (pip, uv, poetry, etc.) ---
-    {
-      "matchManagers": ["pip_requirements", "pip_setup", "pep621", "pipenv", "poetry", "uv"],
-      "groupName": "python dependencies",
-      "automerge": false
-    },
-
-    // --- Ruby / CocoaPods (sts-client mobile) ---
-    {
-      "matchManagers": ["bundler", "cocoapods"],
-      "groupName": "ruby dependencies",
-      "automerge": false
-    },
-
-    // --- Node.js runtime version (.nvmrc, .node-version) ---
-    {
-      "matchManagers": ["nvm", "nodenv"],
-      "groupName": "Node.js version",
       "automerge": false
     },
 
