@@ -26,28 +26,6 @@
     },
     {
       "customType": "regex",
-      "description": "Trunk CLI version in trunk.yaml",
-      "fileMatch": ["(^|/)\\.trunk/trunk\\.yaml$"],
-      "matchStrings": [
-        "cli:\\s*\\n\\s*version:\\s*(?<currentValue>[0-9]+\\.[0-9]+\\.[0-9]+)"
-      ],
-      "depNameTemplate": "trunk-io/trunk",
-      "datasourceTemplate": "github-releases",
-      "extractVersionTemplate": "^v?(?<version>.*)$"
-    },
-    {
-      "customType": "regex",
-      "description": "Trunk plugins ref in trunk.yaml",
-      "fileMatch": ["(^|/)\\.trunk/trunk\\.yaml$"],
-      "matchStrings": [
-        "uri:\\s*https://github\\.com/trunk-io/plugins\\s*\\n\\s*ref:\\s*(?<currentValue>v[0-9]+\\.[0-9]+\\.[0-9]+)"
-      ],
-      "depNameTemplate": "trunk-io/plugins",
-      "datasourceTemplate": "github-releases",
-      "extractVersionTemplate": "^(?<version>.*)$"
-    },
-    {
-      "customType": "regex",
       "description": "Aqua installer version in Containerfile/Dockerfile",
       "fileMatch": ["(^|/)Containerfile$", "(^|/)Dockerfile$"],
       "matchStrings": [
@@ -151,13 +129,6 @@
       "automerge": false
     },
 
-    // --- Trunk versions: custom regex manager ---
-    {
-      "matchManagers": ["regex"],
-      "matchDepNames": ["trunk-io/trunk", "trunk-io/plugins"],
-      "groupName": "Trunk",
-      "automerge": false
-    }
   ],
 
   // Terraform: skip vendored/generated paths
