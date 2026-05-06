@@ -11,14 +11,6 @@
   "labels": ["auto-upgrade"],
   "dependencyDashboardAutoclose": true,
 
-  // All managers we want org-wide
-  "enabledManagers": [
-    "aqua",
-    "dockerfile",
-    "github-actions",
-    "regex",
-    "terraform"
-  ],
 
   // Apt package pins in Dockerfiles/Containerfiles
   // Matches: packagename=version  (Debian-style pinned installs)
