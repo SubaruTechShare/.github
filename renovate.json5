@@ -6,15 +6,6 @@
   ],
 
   // Run weekly — Monday before 5am UTC
-  // Scope to infra tooling only — app deps (npm, maven, pip, etc.) are client-owned
-  "enabledManagers": [
-    "aqua",
-    "dockerfile",
-    "github-actions",
-    "regex",
-    "terraform"
-  ],
-
   "schedule": ["before 5am on Monday"],
   "baseBranchPatterns": ["$default"],
   "labels": ["auto-upgrade"],
