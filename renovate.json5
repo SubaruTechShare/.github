@@ -10,14 +10,12 @@
   "baseBranchPatterns": ["$default"],
   "labels": ["auto-upgrade"],
   "dependencyDashboardAutoclose": true,
+  "separateMajorMinor": false,
 
-
-  // Apt package pins in Dockerfiles/Containerfiles
-  // Matches: packagename=version  (Debian-style pinned installs)
   "customManagers": [
     {
       "customType": "regex",
-      "description": "Debian apt pinned package versions",
+      "description": "Debian apt pinned package versions in Dockerfiles/Containerfiles",
       "fileMatch": ["(^|/)Containerfile$", "(^|/)Dockerfile$"],
       "matchStrings": [
         "(?<depName>[a-z0-9][a-z0-9.+-]*)=(?<currentValue>[0-9][a-zA-Z0-9.+~:-]*)(?=\\s|\\\\|$)"
@@ -73,7 +71,7 @@
   ],
 
   "packageRules": [
-    // Aqua packages: group all together, conservative age, no automerge
+    // --- Aqua ---
     {
       "matchManagers": ["aqua"],
       "matchDepNames": ["!aquaproj/aqua-registry"],
@@ -81,33 +79,79 @@
       "minimumReleaseAge": "90 days",
       "automerge": false
     },
-    // Aqua registry itself: 10 day age, separate PR
     {
       "matchManagers": ["aqua"],
       "matchDepNames": ["aquaproj/aqua-registry"],
+      "groupName": "aqua registry",
       "minimumReleaseAge": "10 days",
       "automerge": false
     },
-    // GHA: pin to SHA, group all updates together
+
+    // --- GitHub Actions ---
     {
       "matchManagers": ["github-actions"],
-      "pinDigests": true,
       "groupName": "GitHub Actions",
+      "pinDigests": true,
       "automerge": false
     },
-    // Terraform: keep existing conservative behavior
+
+    // --- Docker base images ---
+    {
+      "matchManagers": ["dockerfile"],
+      "groupName": "Docker base images",
+      "automerge": false
+    },
+
+    // --- Terraform: intentionally individual PRs, needs atmos plan per change ---
     {
       "matchManagers": ["terraform"],
       "automerge": false
     },
-    // Apt pins: no automerge, human review required
+
+    // --- npm/node ---
+    {
+      "matchManagers": ["npm"],
+      "groupName": "npm dependencies",
+      "automerge": false
+    },
+
+    // --- Maven ---
+    {
+      "matchManagers": ["maven"],
+      "groupName": "maven dependencies",
+      "automerge": false
+    },
+
+    // --- Python (pip, uv, poetry, etc.) ---
+    {
+      "matchManagers": ["pip_requirements", "pip_setup", "pep621", "pipenv", "poetry", "uv"],
+      "groupName": "python dependencies",
+      "automerge": false
+    },
+
+    // --- Ruby / CocoaPods (sts-client mobile) ---
+    {
+      "matchManagers": ["bundler", "cocoapods"],
+      "groupName": "ruby dependencies",
+      "automerge": false
+    },
+
+    // --- Node.js runtime version (.nvmrc, .node-version) ---
+    {
+      "matchManagers": ["nvm", "nodenv"],
+      "groupName": "Node.js version",
+      "automerge": false
+    },
+
+    // --- Apt pins: custom regex manager ---
     {
       "matchManagers": ["regex"],
       "matchFileNames": ["**/Containerfile", "**/Dockerfile"],
       "groupName": "apt packages",
       "automerge": false
     },
-    // Trunk versions: group together
+
+    // --- Trunk versions: custom regex manager ---
     {
       "matchManagers": ["regex"],
       "matchDepNames": ["trunk-io/trunk", "trunk-io/plugins"],
