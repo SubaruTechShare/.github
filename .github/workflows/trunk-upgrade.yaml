@@ -1,0 +1,51 @@
+name: Trunk Upgrade
+
+on:
+  workflow_call:
+    inputs:
+      base:
+        description: Base branch to create the upgrade PR against
+        required: true
+        type: string
+      reviewers:
+        description: Comma-separated list of GitHub reviewer usernames or teams
+        required: false
+        type: string
+        default: ""
+
+permissions: read-all
+
+jobs:
+  trunk_upgrade:
+    name: Upgrade Trunk
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Check for Trunk
+        id: check
+        run: |
+          if [ ! -f .trunk/trunk.yaml ]; then
+            echo "No .trunk/trunk.yaml found, skipping upgrade"
+            echo "skip=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Trunk Upgrade
+        id: trunk_upgrade
+        if: steps.check.outputs.skip != 'true'
+        uses: trunk-io/trunk-action/upgrade@75699af9e26881e564e9d832ef7dc3af25ec031b # v1.2.4
+        with:
+          base: ${{ inputs.base }}
+          github-token: ${{ secrets.TECHSHAREBOT_PAT }}
+          reviewers: ${{ inputs.reviewers }}
+          prefix: "chore: "
+
+      - name: Enable auto-merge
+        if: steps.check.outputs.skip != 'true' && steps.trunk_upgrade.outputs.pull-request-operation == 'created'
+        run: gh pr merge --auto --squash "${{ steps.trunk_upgrade.outputs.pull-request-number }}"
+        env:
+          GH_TOKEN: ${{ secrets.TECHSHAREBOT_PAT }}
