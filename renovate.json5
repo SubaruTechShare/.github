@@ -5,8 +5,9 @@
     "github>aquaproj/aqua-renovate-config#1.13.0"
   ],
 
-  // Run weekly — Monday before 5am UTC
-  "schedule": ["before 5am on Monday"],
+  // Monthly cadence — first day of month at 9am
+  "schedule": ["after 9am on the first day of the month"],
+  "minimumReleaseAge": "90 days",
   "baseBranchPatterns": ["$default"],
   "labels": ["auto-upgrade"],
   "dependencyDashboardAutoclose": true,
@@ -58,20 +59,18 @@
   ],
 
   "packageRules": [
-    // --- Aqua ---
+    // --- Aqua packages: automerge safe, low risk tooling ---
     {
       "matchManagers": ["aqua"],
       "matchDepNames": ["!aquaproj/aqua-registry"],
       "groupName": "aqua packages",
-      "minimumReleaseAge": "90 days",
-      "automerge": false
+      "automerge": true
     },
     {
       "matchManagers": ["aqua"],
       "matchDepNames": ["aquaproj/aqua-registry"],
       "groupName": "aqua registry",
-      "minimumReleaseAge": "10 days",
-      "automerge": false
+      "automerge": true
     },
 
     // --- GitHub Actions ---
@@ -101,8 +100,7 @@
       "matchFileNames": ["**/Containerfile", "**/Dockerfile"],
       "groupName": "apt packages",
       "automerge": false
-    },
-
+    }
   ],
 
   // Terraform: skip vendored/generated paths
