@@ -12,6 +12,11 @@ on:
         required: false
         type: string
         default: ""
+      prefix:
+        description: Prefix for the upgrade PR title
+        required: false
+        type: string
+        default: "chore(linting): "
 
 permissions: read-all
 
@@ -42,7 +47,7 @@ jobs:
           base: ${{ inputs.base }}
           github-token: ${{ secrets.TECHSHAREBOT_PAT }}
           reviewers: ${{ inputs.reviewers }}
-          prefix: "chore: "
+          prefix: ${{ inputs.prefix }}
 
       - name: Enable auto-merge
         if: steps.check.outputs.skip != 'true' && steps.trunk_upgrade.outputs.pull-request-operation == 'created'
