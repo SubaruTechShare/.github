@@ -42,7 +42,7 @@ jobs:
           base: ${{ inputs.base }}
           github-token: ${{ secrets.TECHSHAREBOT_PAT }}
           reviewers: ${{ inputs.reviewers }}
-          prefix: "chore: "
+          prefix: "chore(linting): "
 
       - name: Enable auto-merge
         if: steps.check.outputs.skip != 'true' && steps.trunk_upgrade.outputs.pull-request-operation == 'created'
